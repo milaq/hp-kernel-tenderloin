@@ -3683,7 +3683,7 @@ static int config_camera_on_gpios_web_cam_mt9m113(void)
 {
 	int rc = 0;
 
-	printk("+++ %s\n", __func__);
+	printk("%s\n", __func__);
 	if ( !gpios_web_cam_mt9m113_on ) {
 
 		configure_gpiomux_gpios(1, camera_mt9m113_gpios,
@@ -3698,9 +3698,6 @@ static int config_camera_on_gpios_web_cam_mt9m113(void)
 		if (regulator_enable(votg_lvs0)) {
 			printk("%s:Unable to enable the regulator votg_lvs0\n", __func__);
 			goto err1;
-		}
-		else {
-			printk("%s:enable the regulator votg_lvs0 succeed\n", __func__);
 		}
 
 		votg_vreg_l11 = regulator_get(NULL, "8058_l11");
@@ -3719,14 +3716,10 @@ static int config_camera_on_gpios_web_cam_mt9m113(void)
 			printk("%s:Unable to enable the regulator votg_vreg_l11\n", __func__);
 			goto err2;
 		}
-		else {
-			printk("%s:enable the regulator votg_vreg_l11 succeed\n", __func__);
-		}
 
 		gpios_web_cam_mt9m113_on = true;
 	}
 
-	printk("--- %s\n", __func__);
 	return 0;
 
 err2:
@@ -3748,13 +3741,12 @@ err:
 		rc = -1;
 	}
 
-	printk("--- %s\n", __func__);
 	return rc;
 }
 
 static void config_camera_off_gpios_web_cam_mt9m113(void)
 {
-	printk("+++ %s\n", __func__);
+	printk("%s\n", __func__);
 
 	if (gpios_web_cam_mt9m113_on) {
 
@@ -3768,9 +3760,6 @@ static void config_camera_off_gpios_web_cam_mt9m113(void)
 			if (regulator_disable(votg_lvs0)) {
 				printk("%s:Unable to disable the regulator: votg_lvs0\n", __func__);
 			}
-			else {
-				printk("%s:disable the regulator: votg_lvs0 succeed\n", __func__);
-			}
 
 			regulator_put(votg_lvs0);
 			votg_lvs0 = NULL;
@@ -3783,9 +3772,6 @@ static void config_camera_off_gpios_web_cam_mt9m113(void)
 			if (regulator_disable(votg_vreg_l11)) {
 				printk("%s:Unable to disable the regulator: votg_vreg_l11\n", __func__);
 			}
-			else {
-				printk("%s:disable the regulator: votg_vreg_l11 succeed\n", __func__);
-			}
 
 			regulator_put(votg_vreg_l11);
 			votg_vreg_l11 = NULL;
@@ -3794,7 +3780,6 @@ static void config_camera_off_gpios_web_cam_mt9m113(void)
 		gpios_web_cam_mt9m113_on = false;
 	}
 
-	printk("--- %s\n", __func__);
 }
 
 struct msm_camera_device_platform_data msm_camera_device_data_web_cam_mt9m113 = {
